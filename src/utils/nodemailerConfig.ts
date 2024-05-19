@@ -20,12 +20,12 @@ transporter.verify ((err, success)=>{
     }
 })
 
-export function sendOTP(email:string, driveLink:string) {
+export function sendOTP(email:string, name:string) {
     const mailOptions = {
         from: process.env.AUTH_EMAIL, 
         to: email,
         subject: 'Certificate Link',
-        text: `Your Certificate Drivelink is: ${driveLink}`
+        text: `Your Certificate Drivelink is: ${name}`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {

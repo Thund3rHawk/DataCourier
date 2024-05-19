@@ -1,11 +1,13 @@
 import mongoose from 'mongoose';
+import { userDetails } from './user.model';
 
 const list = new mongoose.Schema({
-    title : String,
+    title : {type: String, required: true, unique: true},
     customProperty: [{
         title: String,
         fallbackValue : String,
     }],
+    users: [userDetails],
 });
 
-export const List = mongoose.model ("list", list);
+export const ListSchema = mongoose.model ("list", list);
