@@ -1,4 +1,4 @@
-import { ListSchema } from "../schema/listSchema.model";
+import { ListModel } from "../schema/listSchema.model";
 import { List } from "../type";
 import fs from 'fs';
 import { asyncHandler } from "../utils/asyncHandler";
@@ -8,7 +8,7 @@ import { csvParser } from "../utils/csvParser";
 const addUsertoList = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { listTitle } = req.params;
-        const list = await ListSchema.findOne({ title: listTitle });
+        const list = await ListModel.findOne({ title: listTitle });
 
         if (!list) {
             return res.status(404).send({ message: 'List not found' });
