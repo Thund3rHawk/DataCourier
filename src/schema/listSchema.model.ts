@@ -6,7 +6,7 @@ interface CustomProperty {
   fallbackValue: string;
 }
 
-interface List extends Document {
+export interface List extends Document {
   title: string;
   customProperties: CustomProperty[];
   users: User[];

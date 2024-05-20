@@ -8,11 +8,12 @@ interface CustomProperty {
 export interface User{
     name: string;
     email: string;
+    city: string;
     [key: string]: string;
 }
 
 export interface List extends Document{
     title: string;
-    customPropertiy: CustomProperty[];
+    customProperty: CustomProperty[];
     users: User[];
 }

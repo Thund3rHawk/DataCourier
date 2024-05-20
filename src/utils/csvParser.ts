@@ -1,7 +1,9 @@
 import csv from 'csv-parser';
 import fs from 'fs';
-import { List, User } from '../type';
-import { sendMial } from './nodemailerConfig';
+import { sendEmail } from './nodemailerConfig';
+import { List } from '../schema/listSchema.model';
+import { User, userDetails } from '../schema/user.model';
+
 
 
 // This finction converts csv to json
@@ -15,15 +17,19 @@ export function csvParser (filePath: String, list: List, callback: (rowCount: nu
         .pipe(csv())
         .on('data', (data)=> {
             result.push (data)
-            const user: User = { name: data.name, email: data.email, city: data.city};
-
-            list.customPropertiy.forEach(prop => {
+            const user: User = new userDetails({ 
+                name: data.name, 
+                email: data.email, 
+                city: data.city, 
+                properties: {}
+            }) ;
+            list.customProperties.forEach(prop => {
+                console.log (prop.title);
                 const value = data[prop.title] || prop.fallbackValue;
-                user[prop.title] = String(value); 
+                user.properties[prop.title] = String(value); 
               });
-              try {                
+              try {   
                   list.users.push(user);
-                  sendMial (user.email, user.name, user.city);
                   successCount++;                
               } catch (err) {
                 console.log (`csvParser function Row: ${rowCount}, Error: ${err}`);

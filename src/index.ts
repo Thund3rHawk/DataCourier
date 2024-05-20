@@ -7,7 +7,19 @@ require('dotenv').config();
 
 const app = express ();
 const port = 3000 || process.env.PORT;
-const upload = multer({dest: 'uploads/'});
+// const upload = multer({dest: 'uploads/'});
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {      
+      cb(null, file.originalname);
+    }
+  })
+  
+  const upload = multer({storage});
+  
 
 // Middleware
 app.use(express.json({ limit: '50mb' }));
