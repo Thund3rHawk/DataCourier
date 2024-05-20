@@ -6,7 +6,7 @@ This project allows admins to add users to a list via CSV upload, efficiently ha
 
 ### 1. Create a List
 
-- **URL:** `http://localhost:3000/`
+- **URL:** `http://localhost:3000/post`
 - **Method:** `POST`
 - **Description:** Creates a new list with a title and custom properties.
 - **Request Body:**
@@ -25,7 +25,7 @@ This project allows admins to add users to a list via CSV upload, efficiently ha
 
 - **Example:**
   ```sh
-  curl -X POST http://localhost:3000/ -H "Content-Type: application/json" -d '{
+  curl -X POST http://localhost:3000/post -H "Content-Type: application/json" -d '{
     "title": "My List",
     "customProperties": [
       { "title": "city", "fallbackValue": "Unknown" }
@@ -78,7 +78,7 @@ This project allows admins to add users to a list via CSV upload, efficiently ha
 
 ### Create a New List
 ```sh
-curl -X POST http://localhost:3000/ -H "Content-Type: application/json" -d '{
+curl -X POST http://localhost:3000/post -H "Content-Type: application/json" -d '{
   "title": "Friends List",
   "customProperties": [
     { "title": "hobby", "fallbackValue": "Unknown" }
