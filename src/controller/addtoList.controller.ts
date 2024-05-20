@@ -1,5 +1,4 @@
 import { ListModel } from "../schema/listSchema.model";
-import { List } from "../type";
 import fs from 'fs';
 import { asyncHandler } from "../utils/asyncHandler";
 import { Request, Response } from "express";
@@ -16,13 +15,6 @@ const addUsertoList = asyncHandler(async (req: Request, res: Response) => {
         if (!req.file) {
             return res.status(400).send({ message: 'No file uploaded' });
         }
-        // const listDoc = list.toObject() as List;
-        // res.send (req.file.path);
-
-        // const results: User[] = [];
-        // const errors: { row: number, error: string }[] = [];
-        // let rowCount = 0;
-        // let successCount = 0;
 
         csvParser(req.file.path, list, async (rowCount, successCount, errors) => {
             await list.save();

@@ -7,38 +7,44 @@ import { User, userDetails } from '../schema/user.model';
 
 
 // This finction converts csv to json
-export function csvParser (filePath: String, list: List, callback: (rowCount: number, successCount: number, errors: { row: number, error: string }[]) => void){
+export function csvParser(filePath: String, list: List, callback: (rowCount: number, successCount: number, errors: { row: number, error: string }[]) => void) {
     const result: User[] = [];
-    const errors: {row: number, error: string}[] = [];
+    const errors: { row: number, error: string }[] = [];
     let rowCount = 0;
     let successCount = 0;
 
-    fs.createReadStream (`${filePath}`)
+    fs.createReadStream(`${filePath}`)
         .pipe(csv())
-        .on('data', (data)=> {
-            result.push (data)
-            const user: User = new userDetails({ 
-                name: data.name, 
-                email: data.email, 
-                city: data.city, 
+        .on('data', (data) => {
+            result.push(data)
+            const user: User = new userDetails({
+                name: data.name,
+                email: data.email,
+                city: data.city,
                 properties: {}
-            }) ;
+            });
             list.customProperties.forEach(prop => {
-                console.log (prop.title);
+                console.log(prop.title);
                 const value = data[prop.title] || prop.fallbackValue;
-                user.properties[prop.title] = String(value); 
-              });
-              try {   
-                  list.users.push(user);
-                  successCount++;                
-              } catch (err) {
-                console.log (`csvParser function Row: ${rowCount}, Error: ${err}`);
-              }
+                user.properties[prop.title] = String(value);
+            });
+            try {
+                if (list.users.some((existingUser: User) => existingUser.email === user.email)) {
+                    errors.push({ row: rowCount, error: 'Duplicate email' });
+                }
+                else {
+                    list.users.push(user);
+                    sendEmail (user.email, user.name, user.city);
+                    successCount++;
+                }
+            } catch (err) {
+                console.log(`csvParser function Row: ${rowCount}, Error: ${err}`);
+            }
         })
         .on('error', (error) => {
             errors.push({ row: rowCount, error: error.message });
-          })
-        .on ('end', ()=>{
+        })
+        .on('end', () => {
             callback(rowCount, successCount, errors);
         });
     return result;
