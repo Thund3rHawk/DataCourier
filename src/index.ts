@@ -1,4 +1,4 @@
-import express, { Response, Request } from 'express'
+import express from 'express'
 import { connectDB } from './db';
 import { route } from './routes';
 import multer from 'multer';
@@ -41,7 +41,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 
-app.get ('/', (req: Request,res: Response)=>{
+app.get ('/', (req,res)=>{
     res.send ("Hello World");
 })
 
