@@ -3,12 +3,15 @@ import { connectDB } from './db';
 import { route } from './routes';
 import multer from 'multer';
 import cors from 'cors';
+import errorHandler from './utils/errorHandler';
 
 require('dotenv').config();
 
 
 const app = express ();
 const port = 3000 || process.env.PORT;
+
+app.use(errorHandler);
 
 const corsOptions = {
   origin: '*', 
