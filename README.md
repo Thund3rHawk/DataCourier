@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ```markdown
 # CSV Email Sender API
 
