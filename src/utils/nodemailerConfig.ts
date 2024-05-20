@@ -3,14 +3,21 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const userEmail = process.env.AUTH_EMAIL;
+const password = process.env.AUTH_EMAIL_PASS;
+
+
 export const transporter = nodemailer.createTransport ({
-    host: 'smtp.gmail.com',
-    port: 587, 
-    secure: false,
+    host: 'smtp.gmail.com',  
+    port: 465,
+    secure: true,  
     auth:{
-        user: process.env.AUTH_EMAIL,
-        pass: process.env.AUTH_EMAIL_PASS,
-    }
+        user: userEmail,
+        pass: password,
+    },
+    tls: {
+        rejectUnauthorized: false,
+    },
 })
 
 transporter.verify ((err, success)=>{
@@ -25,14 +32,10 @@ transporter.verify ((err, success)=>{
 
 export function sendEmail(email:string, name:string, city?:String) {
     const mailOptions = {
-        from: process.env.AUTH_EMAIL, 
+        from: userEmail, 
         to: email,
         subject: 'MathonGo Greetings! ',
-        text: `Hey ${name}!
-
-            Thank you for signing up with your email ${email}. We have received your city as ${city}.
-        
-            Team MathonGo.`
+        html: `<h3>Hey ${name}!</h3><br><p>Thank you for signing up with your email ${email}. We have received your city as ${city}.<br>Team MathonGo.</p>`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
