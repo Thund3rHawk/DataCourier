@@ -12,10 +12,5 @@
     "routes": [{ 
         "src": "/(.*)", 
         "dest": "src/index.ts" 
-    }],
-    "functions":{
-        "src/**/*": {
-            "maxDuration": 20 
-        }
-    }
+    }]
 }
