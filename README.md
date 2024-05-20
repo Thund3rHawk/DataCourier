@@ -1,4 +1,3 @@
-```markdown
 # CSV Email Sender API
 
 This project allows admins to add users to a list via CSV upload, efficiently handling 10,000+ records, and send email notifications to them using the provided CSV file.
