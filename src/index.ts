@@ -2,12 +2,24 @@ import express, { Response, Request } from 'express'
 import { connectDB } from './db';
 import { route } from './routes';
 import multer from 'multer';
+import cors from 'cors';
+
 require('dotenv').config();
 
 
 const app = express ();
 const port = 3000 || process.env.PORT;
-// const upload = multer({dest: 'uploads/'});
+
+const corsOptions = {
+  origin: '*', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  credentials: true, 
+  optionsSuccessStatus: 204 
+};
+
+app.use(cors(corsOptions));
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
