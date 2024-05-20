@@ -5,7 +5,6 @@ import { ListSchema } from '../schema/listSchema.model';
 
 
 const createList: RequestHandlerParams = asyncHandler(async (req:Request,res:Response)=>{
-    // Pending function
     try {
         const {title, customProperty} = req.body;
         const list = new ListSchema({title: title, customProperty:customProperty, users: []});

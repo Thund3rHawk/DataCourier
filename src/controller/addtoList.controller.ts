@@ -1,6 +1,5 @@
 import { ListSchema } from "../schema/listSchema.model";
-import { List, User } from "../type";
-import path from 'path';
+import { List } from "../type";
 import fs from 'fs';
 import { asyncHandler } from "../utils/asyncHandler";
 import { Request, Response } from "express";
@@ -18,7 +17,7 @@ const addUsertoList = asyncHandler(async (req: Request, res: Response) => {
             return res.status(400).send({ message: 'No file uploaded' });
         }
 
-        const listDoc = list as List;
+        const listDoc = list.toObject() as List;
 
         // const results: User[] = [];
         // const errors: { row: number, error: string }[] = [];

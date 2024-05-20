@@ -20,12 +20,16 @@ transporter.verify ((err, success)=>{
     }
 })
 
-export function sendOTP(email:string, name:string) {
+export function sendMial(email:string, name:string, city?: String) {
     const mailOptions = {
         from: process.env.AUTH_EMAIL, 
         to: email,
-        subject: 'Certificate Link',
-        text: `Your Certificate Drivelink is: ${name}`
+        subject: 'MathonGo Greetings',
+        text: `Hey ${name}!
+
+            Thank you for signing up with your email [email]. We have received your city as ${city}.
+        
+            Team MathonGo.`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
