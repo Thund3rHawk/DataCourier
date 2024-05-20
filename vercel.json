@@ -1,17 +1,19 @@
-{ 
-    "version": 2, 
-    "builds": [{
-        "src": "src/index.ts",
-        "use": "@vercel/node",
-        "config": {
-            "maxLambdaSize": "50mb",
-            "memory": 1024,
-            "timeout": 20
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "src/index.ts",
+            "use": "@vercel/node"
         }
-    }],
-    "routes": [{ 
-        "src": "/(.*)", 
-        "dest": "src/index.ts",
-        "methods": ["POST", "GET"]
-    }]
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/src/index.ts",
+            "methods": [
+                "POST",
+                "GET"
+            ]
+        }
+    ]
 }
